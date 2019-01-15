@@ -23,6 +23,7 @@ ifeq ($(ALL_MODULES),yes)
         FUNCTIONAL_EXPANSION_TOOLS  := yes
         GEOCHEMISTRY                := yes
         HEAT_CONDUCTION             := yes
+	LASER_WELDING	            := yes
         LEVEL_SET                   := yes
         MISC                        := yes
         NAVIER_STOKES               := yes
@@ -124,6 +125,13 @@ ifeq ($(GEOCHEMISTRY),yes)
   APPLICATION_NAME   := geochemistry
   APPLICATION_DIR    := $(MOOSE_DIR)/modules/$(APPLICATION_NAME)
   SUFFIX             := gc
+  include $(FRAMEWORK_DIR)/app.mk
+endif
+
+ifeq ($(LASER_WELDING),yes)
+  APPLICATION_DIR    := $(MOOSE_DIR)/modules/laser_welding
+  APPLICATION_NAME   := laser_welding
+  SUFFIX             := lw
   include $(FRAMEWORK_DIR)/app.mk
 endif
 

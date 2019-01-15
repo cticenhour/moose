@@ -34,6 +34,9 @@
 #ifdef HEAT_CONDUCTION_ENABLED
 #include "HeatConductionApp.h"
 #endif
+#ifdef LASER_WELDING_ENABLED
+#include "LaserWeldingApp.h"
+#endif
 #ifdef LEVEL_SET_ENABLED
 #include "LevelSetApp.h"
 #endif
@@ -355,6 +358,10 @@ ModulesApp::registerAll(Factory & f, ActionFactory & af, Syntax & s)
 
 #ifdef HEAT_CONDUCTION_ENABLED
   HeatConductionApp::registerAll(f, af, s);
+#endif
+
+#ifdef LASER_WELDING_ENABLED
+  LaserWeldingApp::registerAll(f, af, s);
 #endif
 
 #ifdef LEVEL_SET_ENABLED
