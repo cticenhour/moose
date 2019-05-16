@@ -1,0 +1,14 @@
+[Tests]
+  [./nodal_error_block_exodiff]
+    type = 'Exodiff'
+    input = 'nodal_l2_error_pps_block_test.i'
+    exodiff = 'nodal_l2_error_pps_block_test_out.e'
+    requirement = 'The system shall allow calculations of nodal L2 error only within certain blocks.'
+  [../]
+  [./nodal_error_block_csvdiff]
+    type = 'CSVDiff'
+    input = 'nodal_l2_error_pps_block_test.i'
+    csvdiff = 'nodal_l2_error_pps_block_test_out.csv'
+    requirement = 'The system shall allow calculations of nodal L2 error only within certain blocks.'
+  [../]
+[]
