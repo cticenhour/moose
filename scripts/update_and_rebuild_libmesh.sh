@@ -146,8 +146,8 @@ if [ -z "$go_fast" ]; then
                                    --enable-unique-id \
                                    --disable-warnings \
                                    --with-thread-model=openmp \
+                                   --enable-complex \
                                    --disable-maintainer-mode \
-                                   --enable-petsc-hypre-required \
                                    --enable-metaphysicl-required \
                                    $DISABLE_TIMESTAMPS $VTK_OPTIONS $* | tee -a "$SCRIPT_DIR/$DIAGNOSTIC_LOG" || exit 1
 else
