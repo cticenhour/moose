@@ -100,6 +100,7 @@ class Tester(MooseObject):
         params.addParam("verification", False, "Set to True to mark test as a verification problem.")
         params.addParam("deprecated", False, "When True the test is no longer considered part SQA process and as such does not include the need for a requirement definition.")
         params.addParam("working_directory", None, "When set, TestHarness will enter this directory before running test")
+        params.addParam("do_last", None, "When set, TestHarness will run this test last. Multiple 'do_last' tests, or tests that depend on a do_last test will result in cyclic errors'")
         return params
 
     # This is what will be checked for when we look for valid testers
