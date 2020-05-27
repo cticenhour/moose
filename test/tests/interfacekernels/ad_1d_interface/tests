@@ -1,0 +1,35 @@
+[Tests]
+  [./interface_diffusion]
+    type = 'Exodiff'
+    input = 'coupled_value_coupled_flux.i'
+    exodiff = 'coupled_value_coupled_flux_out.e'
+    requirement = "Interface kernels with automatic differentiation capability shall"
+                  " provide integrated conditions between subdomains, and shall"
+                  " work with boundary restricted materials with stateful properties."
+    issues = '#11258 #869'
+    design = 'InterfaceKernels/index.md'
+  [../]
+  [./interface_diffusion_penalty]
+    type = 'Exodiff'
+    input = 'coupled_value_coupled_flux.i'
+    cli_args = "InterfaceKernels/active='penalty_interface' BCs/active='left right' Outputs/file_base=coupled_value_coupled_flux_penalty_out"
+    exodiff = 'coupled_value_coupled_flux_penalty_out.e'
+    issues = '#11765'
+    requirement = "The interface diffusion penalty method with automatic differentiation"
+                  " capability should reproduce the analytic solution."
+    prereq = 'interface_diffusion'
+    design = 'InterfaceKernels/index.md'
+  [../]
+  [./jacobian_test]
+    type = PetscJacobianTester
+    input = coupled_value_coupled_flux.i
+    scale_refine = 5
+    difference_tol = 1e-7
+    petsc_version = '<3.9.0 || >=3.9.4'
+    cli_args = 'Outputs/exodus=false'
+    issues = '#13232'
+    requirement = "The system shall produce correct Jacobians for coupled flux on an"
+                  " interface when using automatic differentiation."
+    design = 'InterfaceKernels/index.md'
+  [../]
+[]
