@@ -23,7 +23,7 @@ ifeq ($(ALL_MODULES),yes)
         FUNCTIONAL_EXPANSION_TOOLS  := yes
         GEOCHEMISTRY                := yes
         HEAT_CONDUCTION             := yes
-	LASER_WELDING	            := yes
+        LASER_WELDING               := yes
         LEVEL_SET                   := yes
         MISC                        := yes
         NAVIER_STOKES               := yes
@@ -79,7 +79,7 @@ ifeq ($(HEAT_CONDUCTION),yes)
 endif
 
 # The master list of all moose modules
-MODULE_NAMES := "chemical_reactions contact external_petsc_solver fluid_properties fsi functional_expansion_tools geochemistry heat_conduction level_set misc navier_stokes peridynamics phase_field porous_flow ray_tracing rdg richards stochastic_tools tensor_mechanics xfem"
+MODULE_NAMES := "chemical_reactions contact external_petsc_solver fluid_properties fsi functional_expansion_tools geochemistry heat_conduction laser_welding level_set misc navier_stokes peridynamics phase_field porous_flow ray_tracing rdg richards stochastic_tools tensor_mechanics xfem"
 
 ################################################################################
 ########################## MODULE REGISTRATION #################################
