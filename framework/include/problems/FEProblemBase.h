@@ -2760,6 +2760,8 @@ public:
   bool hasKokkosResidualObjects() const { return _has_kokkos_residual_objects; }
 #endif
 
+  BoundaryName & getMasterBoundaryName() { return _master_bdry_name; }
+
 protected:
   /**
    * Deprecated. Users should switch to overriding the meshChanged which takes arguments
@@ -3343,6 +3345,8 @@ private:
 
   /// Number of steps in a grid sequence
   unsigned int _num_grid_steps;
+
+  BoundaryName _master_bdry_name;
 
   /// Whether to trust the user coupling matrix no matter what. See
   /// https://github.com/idaholab/moose/issues/16395 for detailed background
