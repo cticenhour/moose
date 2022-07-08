@@ -226,6 +226,9 @@ FEProblemBase::validParams()
                         "True to indicate that this calculation requires a solution vector for "
                         "storing the prvious nonlinear iteration.");
 
+  params.addParam<BoundaryName>("master_bdry_name",
+                                "Boundary name in master subapp wants to transfer data from/to. ");
+
   params.addPrivateParam<MooseMesh *>("mesh");
 
   params.declareControllable("solve");
@@ -319,7 +322,9 @@ FEProblemBase::FEProblemBase(const InputParameters & parameters)
     _u_dotdot_old_requested(false),
     _has_mortar(false),
     _num_grid_steps(0),
-    _displaced_neighbor_ref_pts("invert_elem_phys use_undisplaced_ref unset", "unset")
+    _displaced_neighbor_ref_pts("invert_elem_phys use_undisplaced_ref unset", "unset"),
+    _master_bdry_name(isParamValid("master_bdry_name") ? getParam<BoundaryName>("master_bdry_name")
+                                                       : "")
 {
   //  Initialize static do_derivatives member. We initialize this to true so that all the default AD
   //  things that we setup early in the simulation actually get their derivative vectors initalized.

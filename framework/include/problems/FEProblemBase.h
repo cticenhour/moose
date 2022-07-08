@@ -1980,6 +1980,8 @@ public:
 
   bool computingScalingResidual() const override final { return _computing_scaling_residual; }
 
+  BoundaryName & getMasterBoundaryName() { return _master_bdry_name; }
+
 protected:
   /// Create extra tagged vectors and matrices
   void createTagVectors();
@@ -2321,6 +2323,8 @@ private:
   /// MooseEnum describing how to obtain reference points for displaced mesh dgkernels and/or
   /// interface kernels. Options are invert_elem_phys, use_undisplaced_ref, and the default unset.
   MooseEnum _displaced_neighbor_ref_pts;
+
+  BoundaryName _master_bdry_name;
 
   /// Whether to trust the user coupling matrix no matter what. See
   /// https://github.com/idaholab/moose/issues/16395 for detailed background
