@@ -106,10 +106,10 @@ protected:
   Real _length;
 
   /// Number of elements in each subsection of the geometric component
-  const std::vector<unsigned int> & _n_elems;
+  std::vector<unsigned int> _n_elems;
 
   /// Number of elements along the main axis
-  const unsigned int _n_elem;
+  unsigned int _n_elem;
 
   /// Number of sections in the geometric component
   const unsigned int _n_sections;
