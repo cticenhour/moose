@@ -1,23 +1,23 @@
 [Mesh]
-  type = GeneratedMesh
-  dim = 1
-  nx = 10
-  xmax = 2
-[]
-
-[MeshModifiers]
+  [./init_mesh]
+    type = GeneratedMeshGenerator
+    dim = 1
+    nx = 10
+    xmax = 2
+  [../]
   [./subdomain1]
-    type = SubdomainBoundingBox
+    type = SubdomainBoundingBoxGenerator
     bottom_left = '1.0 0 0'
     block_id = 1
     top_right = '2.0 1.0 0'
+    input = init_mesh
   [../]
   [./interface]
-    type = SideSetsBetweenSubdomains
-    depends_on = 'subdomain1'
-    master_block = '0'
+    type = SideSetsBetweenSubdomainsGenerator
+    primary_block = '0'
     paired_block = '1'
     new_boundary = 'master0_interface'
+    input = subdomain1
   [../]
 []
 
