@@ -33,5 +33,5 @@ QPrimeDuctAux::QPrimeDuctAux(const InputParameters & parameters)
 Real
 QPrimeDuctAux::computeValue()
 {
-  return DiffusionFluxAux::computeValue() * _flat_to_flat * std::tan(libMesh::pi / 6) * 2 * 6;
+  return DiffusionFluxAux::computeValue() * 6 * _flat_to_flat / std::sqrt(3);
 }
