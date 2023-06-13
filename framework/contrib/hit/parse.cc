@@ -1377,13 +1377,27 @@ parseExitPath(Parser * p, Node * n)
 void
 parseEnterPath(Parser * p, Node * n)
 {
+  std::string s;
   p->ignore();
   p->require(TokType::LeftBracket, "");
   const auto & tok = p->require(TokType::Path, "invalid path in section header");
   p->require(TokType::RightBracket, "missing ']'");
   if (tok.val == "./" || tok.val == "")
     p->error(tok, "empty section name - did you mean '../'?");
-  auto section = p->emit(new Section(tok.val));
+  std::string::size_type pos = tok.val.find("/");
+  if (pos != std::string::npos && tok.val.find("./") == std::string::npos && n->parent() == nullptr)
+  {
+    s = tok.val.substr(0, pos);
+  }
+  else if (pos != std::string::npos && tok.val.find("./") == std::string::npos && n->parent() != nullptr)
+  {
+    s = tok.val.substr(pos);
+  }
+  else
+  {
+    s = tok.val;
+  }
+  auto section = p->emit(new Section(s));
   n->addChild(section);
   parseSectionBody(p, section);
   parseExitPath(p, n);
@@ -1648,7 +1662,7 @@ explode(Node * n)
     explode(child);
 #endif
 
-  /// for wasp: all of the explode logic that expands shorthand path notatio
+  /// for wasp: all of the explode logic that expands shorthand path notation
   /// into sections is handled by a combination of the wasp interpreter and
   /// the buildHITTree so this method is a no-op and is temporarily here
   /// for interface purposes
