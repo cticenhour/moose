@@ -21,6 +21,8 @@ Content:
         root_dir: ${MOOSE_DIR}/modules/fsi/doc/content
     functional_expansion_tools:
         root_dir: ${MOOSE_DIR}/modules/functional_expansion_tools/doc/content
+    fusion:
+        root_dir: ${MOOSE_DIR}/modules/fusion/doc/content
     geochemistry:
         root_dir: ${MOOSE_DIR}/modules/geochemistry/doc/content
     heat_transfer:

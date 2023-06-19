@@ -22,6 +22,7 @@ ifeq ($(ALL_MODULES),yes)
         FLUID_PROPERTIES            := yes
         FSI                         := yes
         FUNCTIONAL_EXPANSION_TOOLS  := yes
+        FUSION                      := yes
         GEOCHEMISTRY                := yes
         HEAT_TRANSFER               := yes
         LEVEL_SET                   := yes
@@ -55,6 +56,16 @@ ifeq ($(SCALAR_TRANSPORT),yes)
         RDG                         := yes
         RAY_TRACING                 := yes
         SOLID_PROPERTIES            := yes
+        MISC                        := yes
+endif
+
+ifeq ($(FUSION),yes)
+        THERMAL_HYDRAULICS          := yes
+        NAVIER_STOKES               := yes
+        FLUID_PROPERTIES            := yes
+        HEAT_CONDUCTION             := yes
+        RAY_TRACING                 := yes
+        RDG                         := yes
         MISC                        := yes
 endif
 
@@ -132,7 +143,7 @@ ifeq ($(FLUID_PROPERTIES),yes)
 endif
 
 # The complete list of all moose modules
-MODULE_NAMES := "chemical_reactions contact electromagnetics external_petsc_solver fluid_properties fsi functional_expansion_tools geochemistry heat_transfer level_set misc navier_stokes optimization peridynamics phase_field porous_flow ray_tracing rdg reactor richards scalar_transport solid_properties stochastic_tools solid_mechanics thermal_hydraulics xfem"
+MODULE_NAMES := "chemical_reactions contact electromagnetics external_petsc_solver fluid_properties fsi functional_expansion_tools fusion geochemistry heat_transfer level_set misc navier_stokes optimization peridynamics phase_field porous_flow ray_tracing rdg reactor richards scalar_transport solid_properties stochastic_tools solid_mechanics thermal_hydraulics xfem"
 
 ################################################################################
 ########################## MODULE REGISTRATION #################################
@@ -185,13 +196,6 @@ ifeq ($(LEVEL_SET),yes)
   APPLICATION_DIR    := $(MOOSE_DIR)/modules/level_set
   APPLICATION_NAME   := level_set
   SUFFIX             := ls
-  include $(FRAMEWORK_DIR)/app.mk
-endif
-
-ifeq ($(MISC),yes)
-  APPLICATION_DIR    := $(MOOSE_DIR)/modules/misc
-  APPLICATION_NAME   := misc
-  SUFFIX             := misc
   include $(FRAMEWORK_DIR)/app.mk
 endif
 
@@ -275,6 +279,23 @@ ifeq ($(NAVIER_STOKES),yes)
   include $(FRAMEWORK_DIR)/app.mk
 endif
 
+# Depended on by fusion, thermal_hydraulics
+ifeq ($(MISC),yes)
+  APPLICATION_DIR    := $(MOOSE_DIR)/modules/misc
+  APPLICATION_NAME   := misc
+  SUFFIX             := misc
+  include $(FRAMEWORK_DIR)/app.mk
+endif
+
+# Depended on by fusion
+ifeq ($(THERMAL_HYDRAULICS),yes)
+  APPLICATION_DIR    := $(MOOSE_DIR)/modules/thermal_hydraulics
+  APPLICATION_NAME   := thermal_hydraulics
+  DEPEND_MODULES     := navier_stokes fluid_properties heat_transfer rdg ray_tracing solid_properties misc
+  SUFFIX             := th
+  include $(FRAMEWORK_DIR)/app.mk
+endif
+
 # The following have their dependencies defined above and do not have any
 # dependers, so we're back to alphabetical.
 
@@ -291,6 +312,14 @@ ifeq ($(FSI),yes)
   APPLICATION_NAME   := fsi
   DEPEND_MODULES     := navier_stokes solid_mechanics
   SUFFIX             := fsi
+  include $(FRAMEWORK_DIR)/app.mk
+endif
+
+ifeq ($(FUSION),yes)
+  APPLICATION_NAME   := fusion
+  APPLICATION_DIR    := $(MOOSE_DIR)/modules/$(APPLICATION_NAME)
+  DEPEND_MODULES     := thermal_hydraulics
+  SUFFIX             := fus
   include $(FRAMEWORK_DIR)/app.mk
 endif
 
@@ -322,14 +351,6 @@ ifeq ($(POROUS_FLOW),yes)
   APPLICATION_NAME   := porous_flow
   DEPEND_MODULES     := solid_mechanics fluid_properties chemical_reactions
   SUFFIX             := pflow
-  include $(FRAMEWORK_DIR)/app.mk
-endif
-
-ifeq ($(THERMAL_HYDRAULICS),yes)
-  APPLICATION_DIR    := $(MOOSE_DIR)/modules/thermal_hydraulics
-  APPLICATION_NAME   := thermal_hydraulics
-  DEPEND_MODULES     := navier_stokes fluid_properties heat_transfer rdg ray_tracing solid_properties misc
-  SUFFIX             := th
   include $(FRAMEWORK_DIR)/app.mk
 endif
 
