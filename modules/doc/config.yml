@@ -9,6 +9,7 @@ Content:
     - modules/fluid_properties/doc/content
     - modules/fsi/doc/content
     - modules/functional_expansion_tools/doc/content
+    - modules/fusion/doc/content
     - modules/heat_conduction/doc/content
     - modules/level_set/doc/content
     - modules/misc/doc/content
