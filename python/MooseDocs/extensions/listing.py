@@ -167,10 +167,18 @@ class InputListingCommand(FileListingCommand):
         out = []
         for block in blocks.split():
             node = moosetree.find(hit, lambda n: n.fullpath.endswith(block.strip('/')))
+            # if (filename=='/Users/icenct/projects/blue_bell/problems/rz.i'):
+            #     print(blocks.split())
+            #     print(node)
+            #     print(node.render())
+            # if (filename=='/Users/icenct/projects/moose/modules/combined/examples/phase_field-mechanics/interface_stress.i'):
+            #     print(node)
             if node is None:
                 msg = "Unable to find block '{}' in {}."
                 raise exceptions.MooseDocsException(msg, block, filename)
             out.append(str(node.render()))
+            # if (filename=='/Users/icenct/projects/blue_bell/problems/cycles_per_step.i'):
+            #     print(out)
         return pyhit.parse('\n'.join(out)) if out else hit
 
     @staticmethod

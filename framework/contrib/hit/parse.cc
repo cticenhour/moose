@@ -693,17 +693,43 @@ Section::render(int indent,
   return s;
 #else
   std::string s;
+  // if (filename() == "/Users/icenct/projects/blue_bell/problems/rz.i")
+  // {
+  //   for (auto i : tokens())
+  //   {
+  //     if (i.name == "/Users/icenct/projects/blue_bell/problems/rz.i")
+  //     {
+  //       std::cout << i.str() << std::endl;
+  //     }
+  //   }
+  // }
   if (path() != "" && tokens().size() > 4)
+  {
+    // if (tokens()[1].val.find("/") != std::string::npos && tokens()[1].val.find("./") ==
+    // std::string::npos)
+    // {
+    //    std::cout << "Character found in " << tokens()[1].val << std::endl;
+
+    // }
     s = "\n" + strRepeat(indent_text, indent) + "[" + tokens()[1].val + "]";
+  }
   else if (path() != "")
     s = "\n" + strRepeat(indent_text, indent) + "[" + _path + "]";
 
   for (auto child : children())
+  {
     if (path() == "")
       s += child->render(indent, indent_text, maxlen);
     else
+    {
       s += child->render(indent + 1, indent_text, maxlen);
-
+      if (child->filename() == "/Users/icenct/projects/blue_bell/problems/rz.i")
+      {
+        std::cout << "Child is: " << child->path() << std::endl;
+        std::cout << "Parent is: " << child->parent()->path() << std::endl;
+      }
+    }
+  }
   if (path() != "" && tokens().size() > 4)
     s += "\n" + strRepeat(indent_text, indent) + "[" + tokens()[4].val + "]";
   else if (path() != "")
@@ -1384,20 +1410,50 @@ parseEnterPath(Parser * p, Node * n)
   p->require(TokType::RightBracket, "missing ']'");
   if (tok.val == "./" || tok.val == "")
     p->error(tok, "empty section name - did you mean '../'?");
-  std::string::size_type pos = tok.val.find("/");
-  if (pos != std::string::npos && tok.val.find("./") == std::string::npos && n->parent() == nullptr)
+  // if (n->filename() == "/Users/icenct/projects/blue_bell/problems/rz.i" && tok.val == "Master")
+  // {
+  //   bool check(n->parent()==nullptr);
+  //   std::cout << "Original token path is " << tok.val << std::endl;
+  //   std::cout << "Is this a parent? " << check << std::endl;
+  // }
+  // std::string::size_type pos = tok.val.find("/");
+  // if (pos != std::string::npos && tok.val.find("./") == std::string::npos && n->parent() ==
+  // nullptr)
+  // {
+  //   s = tok.val.substr(0, pos);
+  //   if (n->filename() == "/Users/icenct/projects/blue_bell/problems/rz.i" && tok.val == "Master")
+  //   {
+  //     std::cout << "Hit the high-level block case with " << tok.val << std::endl;
+  //     std::cout << "s (high-level block) is " << s << std::endl;
+  //   }
+  // }
+  // else if (pos != std::string::npos && tok.val.find("./") == std::string::npos && n->parent() !=
+  // nullptr)
+  // {
+  //   s = tok.val.substr(pos + 1);
+  //   if (n->filename() == "/Users/icenct/projects/blue_bell/problems/rz.i" && tok.val == "Master")
+  //   {
+  //     std::cout << "Hit the sub-block case with " << tok.val << std::endl;
+  //     std::cout << "s (sub-block) is " << s << std::endl;
+  //   }
+  // }
+  // else
+  // {
+  //   s = tok.val;
+  //   if (n->filename() == "/Users/icenct/projects/blue_bell/problems/rz.i" && tok.val == "Master")
+  //   {
+  //     std::cout << "Original operation" << std::endl;
+  //     std::cout << "s (original) is " << s << std::endl;
+  //   }
+  // }
+  auto section = p->emit(new Section(tok.val));
+  if (n->filename() == "/Users/icenct/projects/blue_bell/problems/rz.i" && tok.val == "Master")
   {
-    s = tok.val.substr(0, pos);
+    std::cout << "Filename is: " << n->filename() << std::endl;
+    std::cout << "Token values are: " << tok.str() << std::endl;
+    std::cout << "New section info:" << std::endl;
+    std::cout << section->render() << std::endl;
   }
-  else if (pos != std::string::npos && tok.val.find("./") == std::string::npos && n->parent() != nullptr)
-  {
-    s = tok.val.substr(pos);
-  }
-  else
-  {
-    s = tok.val;
-  }
-  auto section = p->emit(new Section(s));
   n->addChild(section);
   parseSectionBody(p, section);
   parseExitPath(p, n);
