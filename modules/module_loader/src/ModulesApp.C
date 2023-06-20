@@ -31,6 +31,9 @@
 #ifdef FUNCTIONAL_EXPANSION_TOOLS_ENABLED
 #include "FunctionalExpansionToolsApp.h"
 #endif
+#ifdef FUSION_ENABLED
+#include "FusionApp.h"
+#endif
 #ifdef GEOCHEMISTRY_ENABLED
 #include "GeochemistryApp.h"
 #endif
@@ -248,6 +251,9 @@ ModulesApp::registerAll(Factory & f, ActionFactory & af, Syntax & s)
 
 #ifdef FUNCTIONAL_EXPANSION_TOOLS_ENABLED
   FunctionalExpansionToolsApp::registerAll(f, af, s);
+
+#ifdef FUSION_ENABLED
+  FusionApp::registerAll(f, af, s);
 #endif
 
 #ifdef GEOCHEMISTRY_ENABLED
