@@ -303,6 +303,7 @@ share/
 /modules/geochemistry/geochemistry.yaml
 /modules/thermal_hydraulics/thermal_hydraulics.yaml
 /modules/reactor/reactor.yaml
+/modules/fusion/fusion.yaml
 /modules/rdg/rdg.yaml
 /modules/fsi/fsi.yaml
 /modules/subchannel/subchannel.yaml
@@ -336,6 +337,7 @@ share/
 /modules/fsi/unit/fsi-unit.yaml
 /modules/subchannel/unit/subchannel-unit.yaml
 /modules/misc/misc.yaml
+/modules/fusion/unit/fusion-unit.yaml
 /tutorials/tutorial01_app_development/*/babbler.yaml
 /tutorials/darcy_thermo_mech/*/darcy_thermo_mech.yaml
 
