@@ -8,7 +8,7 @@ Using implicit Euler, the problem reads
 M\frac{\mathbf u_{n+1}-\mathbf u_n}{\Delta t}=F(\mathbf u_{n+1})
 \end{equation}
 
-To be consistent with the literature, the current implementation has been tested only on implicit Euler.
+To be consistent with the literature the current implementation has been tested only on implicit Euler.
 
 ## Overview
 
@@ -22,7 +22,7 @@ If nothing is known about the problem we recommend `initial_dt = 1` and `alpha =
 
 Methods supported
 
-- Switched evolution relaxation (SER), as exemplified in [fv_burgers_SER.i](test/tests/postprocessors/pseudotimestep/fv_burgers_SER.i),
+- Switched evolution relaxation (SER)
 
 \begin{equation}
 \Delta t_k =\Delta t_{k-1} \cdot \bigg(\frac{R_{k-\ell}}{R_{k}}\bigg)^{\alpha}
@@ -30,8 +30,7 @@ Methods supported
 
 where $\alpha$ is a user chosen parameter. The l2-norm of the steady-state residual at step $k$ is $R_k$, and the residual at $\ell$ iterations before is denoted as $R_{k-\ell}$. To set a number of previous iterations corresponding to $\ell$ the user can prescribe an integer value for the parameter [!param](/Postprocessors/PseudoTimestep/iterations_window).
 
-- Residual Difference Method (RDM), as exemplified in [fv_burgers_RDM.i](test/tests/postprocessors/pseudotimestep/fv_burgers_RDM.i),
-
+- Residual Difference Method (RDM)
 
 \begin{equation}
 \Delta t_k =\Delta t_{k-1} \cdot \alpha^{\frac{R_{k-1}-R_k}{R_{k-1}}}
@@ -39,8 +38,7 @@ where $\alpha$ is a user chosen parameter. The l2-norm of the steady-state resid
 
 This implementation is the `RDM` method variant as found in [!citep](ceze2013pseudo), other variants are available in e.g. [!citep](bucker2009cfl).
 
-- Exponential progression (EXP), as exemplified in [fv_burgers_EXP.i](test/tests/postprocessors/pseudotimestep/fv_burgers_EXP.i),
-
+- Exponential progression (EXP)
 
 \begin{equation}
 \Delta t_k =\Delta t_{0} \cdot \alpha^k
@@ -48,10 +46,12 @@ This implementation is the `RDM` method variant as found in [!citep](ceze2013pse
 
 where $\alpha$ is a user chosen parameter, $k$ is the current iteration step.
 
+As noted also in [!citep](bucker2009cfl) the EXP method has an infinite growth, so for this method a [!param](/Postprocessors/PseudoTimestep/max_dt) parameter may be recommended. If no [!param](/Postprocessors/PseudoTimestep/max_dt) is provided by the user then infinite growth of the timestep is not bounded and the user will be informed by a message at the console. Ideally this method is used in conjunction with a steady state detection, i.e. setting [!param](/Executioner/Transient/steady_state_detection) to `true` and a [!param](/Executioner/Transient/steady_state_tolerance). 
 
-As noted also in [!citep](bucker2009cfl) the EXP method has an infinite growth, so for this method a [!param](/Postprocessors/PseudoTimestep/max_dt) parameter may be recommended. If no [!param](/Postprocessors/PseudoTimestep/max_dt) is provided by the user then infinite growth of the timestep is not bounded and the user will be informed by a message at the console. Ideally this method is used in conjunction with a steady state detection, i.e. setting [!param](/Executioner/Transient/steady_state_detection) to `true` and a [!param](/Executioner/Transient/steady_state_tolerance).
+As an example this postprocessor may be implemented as
 
-
+!listing test/tests/postprocessors/pseudotimestep/fv_burgers_pseudo.i 
+    block=Postprocessors 
 
 !syntax parameters /Postprocessors/PseudoTimestep
 
