@@ -79,6 +79,10 @@ def load_config(filename, **kwargs):
     # Apply command-line key value pairs
     recursive_update(config, kwargs)
 
+    # Set the default for whether to include large_media here during the config loading
+    # if not config['Content']['include_large_media']:
+    #     config['Content'].append({'include_large_media':True})
+
     extensions = _yaml_load_extensions(config)
     reader = _yaml_load_object('Reader', config, DEFAULT_READER)
     renderer = _yaml_load_object('Renderer', config, DEFAULT_RENDERER)

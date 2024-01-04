@@ -79,6 +79,10 @@ def command_line_options(subparser, parent):
                                                      "temporary sites to be functional.")
     parser.add_argument('--hide-source', action='store_true',
                         help="Shortcut for setting the 'hide_source' option in the modal extension.")
+    parser.add_argument('--exclude-large-media', action='store_true',
+                        help="Exclude the large_media submodule in MOOSE to be used in the " \
+                        "construction of a MooseDocs site. This is useful for standalone or " \
+                        "non-MOOSE-based applications that wish to use MooseDocs.")
 
 class MooseDocsWatcher(livereload.watcher.Watcher):
     """
@@ -170,6 +174,10 @@ def main(options):
     # Setup executioner
     if options.executioner:
         kwargs['Executioner']['type'] = options.executioner
+
+    if options.exclude_large_media:
+        exclude_yaml = yaml.load("{Content: {include_large_media: False}}", yaml.Loader)
+        mooseutils.recursive_update(kwargs, exclude_yaml)
 
     # Disable extensions
     if options.stable:

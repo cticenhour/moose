@@ -38,10 +38,10 @@ if MOOSE_DIR is None:
     sys.exit(1)
 
 # Initialize submodule(s)
-mooseutils.git_init_submodule('large_media', MOOSE_DIR)
+#mooseutils.git_init_submodule('large_media', MOOSE_DIR)
 
 # List all files, this is done here to avoid running this command many times
 ls_files = mooseutils.git_ls_files if is_git_repo else mooseutils.list_files
 PROJECT_FILES = ls_files(ROOT_DIR)
 PROJECT_FILES.update(ls_files(MOOSE_DIR))
-PROJECT_FILES.update(ls_files(os.path.join(MOOSE_DIR, 'large_media')))
+#PROJECT_FILES.update(ls_files(os.path.join(MOOSE_DIR, 'large_media')))

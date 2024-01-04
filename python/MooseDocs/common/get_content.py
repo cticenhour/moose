@@ -159,10 +159,15 @@ def get_items(options):
             else:
                 items.append(dict(root_dir=value, content=None, external=False))
     elif isinstance(options, dict):
-        for _, value in options.items():
-            content = value.get('content', None)
-            external = value.get('external', False)
-            items.append(dict(root_dir=value['root_dir'], content=content, external=external))
+        for label, value in options.items():
+            if label == "include_large_media":
+                pass
+            elif isinstance(value, bool):
+                LOG.error("The 'include_large_media' configuration option is the only one allowed in 'Content': %s not recognized.", label)
+            else:
+                content = value.get('content', None)
+                external = value.get('external', False)
+                items.append(dict(root_dir=value['root_dir'], content=content, external=external))
 
     return items
 

@@ -458,8 +458,14 @@ def generate_filebase(string, replace='_', lowercase=True):
 
 def recursive_update(d, u):
     """Recursive update nested dict(), see https://stackoverflow.com/a/3233356/1088076"""
+    # print("d is", d)
+    # print("u is", u)
     for k, v in u.items():
+        # print("k is", k)
+        # print("v is", v)
+        # print(d.get(k, dict()))
         d[k] = recursive_update(d.get(k, dict()), v) if isinstance(v, dict) else v
+    # print("post update d is", d)
     return d
 
 def fuzzyEqual(test_value, true_value, tolerance):
