@@ -31,15 +31,15 @@ def extractContentSettings():
     settings['strip-extra-newlines'] = (True, "Removes extraneous new lines from the text.")
     settings['strip-leading-whitespace'] = (False, "When True leading white-space is removed "
                                             "from the included text.")
-    settings['line'] = (None, "A portion of text that unique identifies a single line to "
+    settings['line'] = (None, "A portion of text that uniquely identifies a single line to "
                         "include.")
     settings['re'] = (None, "Extract content via a regex, if the 'content' group exists it " \
                       "is used as the desired content; if 'remove' group exists it is extracted; otherwise group 0 is used for the content.")
     settings['re-flags'] = ('re.M|re.S|re.U', "Python re flags.")
-    settings['start'] = (None, "A portion of text that unique identifies the starting "
+    settings['start'] = (None, "A portion of text that uniquely identifies the starting "
                          "location for including text, if not provided the beginning "
                          "of the file is utilized.")
-    settings['end'] = (None, "A portion of text that unique identifies the ending location "
+    settings['end'] = (None, "A portion of text that uniquely identifies the ending location "
                        "for including text, if not provided the end of the file is "
                        "used. By default this line is not included in the display.")
     settings['include-start'] = (True, "When False the text captured by the 'start' setting "
