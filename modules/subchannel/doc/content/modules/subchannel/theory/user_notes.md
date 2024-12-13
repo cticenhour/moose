@@ -11,17 +11,21 @@ index, white is the fuel-pin index and red is the gap index.
 
 ## Square lattice
 
-!media figures/square_index.png
+!media media/subchannel/square_index.png
     style=width:60%;margin-bottom:2%;margin:auto;
     id=sindex
     caption=Square Lattice subchannel index notation, in a $5 \times 5$ sub-assembly.
 
 ## Triangular lattice
 
-!media figures/hex_index.png
+!media media/subchannel/hex_index.png
     style=width:60%;margin-bottom:2%;margin:auto;
     id=hindex
     caption=Triangular Lattice subchannel index notation, in a $3$ ring sub-assemly.
+
+In order for the user to print out the index notaion for subchannels and pins in a triangualar lattice arrangement they are invited to run the following Python script:
+
+!listing /scripts/Geometries_script.ipynb  language=python
 
 ## Pressure boundary condition caveat
 
