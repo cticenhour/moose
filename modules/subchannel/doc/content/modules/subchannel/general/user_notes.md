@@ -11,14 +11,14 @@ index, in white numbers the fuel-pin index and in red numbers the gap index.
 
 ### Square lattice
 
-!media media/subchannel/square_index.png
+!media large_media/subchannel/square_index.png
     style=width:60%;margin-bottom:2%;margin:auto;
     id=sindex
     caption=Square Lattice subchannel index notation, in a $5 \times 5$ sub-assembly.
 
 ### Triangular lattice
 
-!media media/subchannel/hex_index.png
+!media large_media/subchannel/hex-index.png
     style=width:60%;margin-bottom:2%;margin:auto;
     id=hindex
     caption=Triangular Lattice subchannel index notation, in a $3$ ring sub-assemly.
