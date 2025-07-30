@@ -14,9 +14,7 @@ import re
 import uuid
 import logging
 
-import moosetree
-
-from ..base import components, renderers, Executioner, Extension
+from ..base import components, renderers, Extension
 from ..common import exceptions
 from ..tree import tokens, html, latex
 

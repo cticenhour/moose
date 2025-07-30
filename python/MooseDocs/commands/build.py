@@ -9,12 +9,10 @@
 
 """Defines the MooseDocs build command."""
 import os
-import sys
 import time
 import collections
 import multiprocessing
 import logging
-import subprocess
 import shutil
 import yaml
 import livereload

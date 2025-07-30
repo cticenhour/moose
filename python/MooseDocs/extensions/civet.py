@@ -11,11 +11,8 @@ import logging
 import time
 import mooseutils
 import collections
-import uuid
-import MooseDocs
 from ..base import components, HTMLRenderer
-from ..tree import tokens, html, latex, pages
-from ..common import exceptions
+from ..tree import tokens, html, pages
 
 from . import command, core
 

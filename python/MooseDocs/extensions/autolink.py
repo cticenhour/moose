@@ -14,7 +14,7 @@ import MooseDocs
 from .. import common
 from ..base import components, Extension
 from ..tree import tokens, latex, html
-from . import core, floats, heading, modal
+from . import core, heading, modal
 
 def make_extension(**kwargs):
     return AutoLinkExtension(**kwargs)

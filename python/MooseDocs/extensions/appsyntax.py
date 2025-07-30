@@ -10,7 +10,6 @@
 import os
 import collections
 import logging
-import copy
 import re
 import time
 import traceback

@@ -7,14 +7,10 @@
 #* Licensed under LGPL 2.1, please see LICENSE for details
 #* https://www.gnu.org/licenses/lgpl-2.1.html
 import os
-import re
-import sys
 import glob
 import logging
-import yaml
 import mooseutils
 import MooseDocs
-from MooseDocs.common import exceptions
 
 LOG = logging.getLogger(__name__)
 

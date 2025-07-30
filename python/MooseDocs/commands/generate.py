@@ -8,20 +8,13 @@
 #* https://www.gnu.org/licenses/lgpl-2.1.html
 
 """Developer tools for MooseDocs."""
-import argparse
 import os
-import re
-import collections
 import logging
 
-import MooseDocs
 import moosesqa
 import moosetree
 import mooseutils
 import moosesyntax
-
-from .. import common
-from ..extensions import template
 
 LOG = logging.getLogger(__name__)
 

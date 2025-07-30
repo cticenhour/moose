@@ -15,8 +15,6 @@ between the reading and rendering content.
 import os
 import uuid
 import logging
-import multiprocessing
-import types
 import traceback
 import time
 
