@@ -14,7 +14,7 @@ import glob
 import tarfile
 import tempfile
 import enum
-import urllib.request
+import requests
 import urllib.error
 import collections
 import logging
@@ -69,9 +69,9 @@ def _get_remote_civet_jobs(hashes, site, repo, cache=DEFAULT_JOBS_CACHE, logger=
     info = list()
     for sha1 in hashes:
         url = '{}/sha_events/{}/{}'.format(site, repo, sha1)
-        pid = urllib.request.urlopen(url)
+        pid = requests.get(url)
 
-        page = pid.read().decode('utf8')
+        page = pid.content.decode("utf-8")
         for match in JOB_RE.finditer(page):
             info.append((int(match.group('job')), site, cache, logger))
 
@@ -97,8 +97,8 @@ def _download_job(info):
 
     else:
         try:
-            response = urllib.request.urlopen(url)
-            if response.code == 200:
+            response = requests.get(url)
+            if response.status_code == 200:
                 if logger:
                     logger.debug('Downloading results for job %s', job)
                 with open(filename, 'wb') as fid:
